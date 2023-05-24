@@ -1,0 +1,55 @@
+Request Body:
+
+GET http://127.0.0.1:5000//api/2.0/mlflow/runs/get?run_id=c1fd3d0c5f364a6cad5c5b459f87adc9&run_uuid=c1fd3d0c5f364a6cad5c5b459f87adc9
+
+Response Structure:
+
+{
+    "run": {
+        "info": {
+            "run_uuid": "c1fd3d0c5f364a6cad5c5b459f87adc9",
+            "experiment_id": "0",
+            "run_name": "indecisive-carp-361",
+            "user_id": "dasjyotishka",
+            "status": "RUNNING",
+            "start_time": 1684886482958,
+            "artifact_uri": "mlflow-artifacts:/0/c1fd3d0c5f364a6cad5c5b459f87adc9/artifacts",
+            "lifecycle_stage": "active",
+            "run_id": "c1fd3d0c5f364a6cad5c5b459f87adc9"
+        },
+        "data": {
+            "params": [
+                {
+                    "key": "F1 score",
+                    "value": "0.18181818181818182"
+                },
+                {
+                    "key": "accuracy",
+                    "value": "0.8532608695652174"
+                }
+            ],
+            "tags": [
+                {
+                    "key": "mlflow.source.type",
+                    "value": "LOCAL"
+                },
+                {
+                    "key": "mlflow.user",
+                    "value": "dasjyotishka"
+                },
+                {
+                    "key": "mlflow.runName",
+                    "value": "indecisive-carp-361"
+                },
+                {
+                    "key": "mlflow.log-model.history",
+                    "value": "[{\"run_id\": \"c1fd3d0c5f364a6cad5c5b459f87adc9\", \"artifact_path\": \"employee_attrition_model\", \"utc_time_created\": \"2023-05-24 00:01:23.617482\", \"flavors\": {\"python_function\": {\"model_path\": \"model.pkl\", \"predict_fn\": \"predict\", \"loader_module\": \"mlflow.sklearn\", \"python_version\": \"3.10.9\", \"env\": {\"conda\": \"conda.yaml\", \"virtualenv\": \"python_env.yaml\"}}, \"sklearn\": {\"pickled_model\": \"model.pkl\", \"sklearn_version\": \"1.2.2\", \"serialization_format\": \"cloudpickle\", \"code\": null}}, \"model_uuid\": \"c6ef82870f8045a2bcd4bdec3d31c56f\", \"mlflow_version\": \"2.3.1\"}]"
+                },
+                {
+                    "key": "mlflow.source.name",
+                    "value": "/home/dasjyotishka/airflow_env/bin/airflow"
+                }
+            ]
+        }
+    }
+}
