@@ -1,3 +1,7 @@
+# Import mlflow
+import mlflow
+import mlflow.sklearn
+
 from airflow import DAG
 from airflow.operators.python import PythonOperator
 from datetime import datetime
@@ -64,9 +68,7 @@ from datetime import datetime
 from time import time
 from dateutil.parser import parse
 
-# Import mlflow
-import mlflow
-import mlflow.sklearn
+
 
 df_sourcefile = pd.DataFrame()
 df_HR = None
@@ -164,16 +166,16 @@ def prep_scale(**context):
 
 
 def split(df):
-	# assign the target to a new dataframe and convert it to a numerical feature
+	# Assign the target to a new dataframe and convert it to a numerical feature
 	target = df['Attrition'].copy()
 	# target = pd.to_numeric(target, downcast='float')
 
-	# let's remove the target feature and redundant features from the dataset
+	# Let's remove the target feature and redundant features from the dataset
 	df.drop(['Attrition', 'EmployeeCount', 'EmployeeNumber', 'StandardHours', 'Over18'], axis=1, inplace=True)
 	print('Size of Full dataset is: {}'.format(df.shape))
 
 	# Since we have class imbalance (i.e. more employees with turnover=0 than turnover=1)
-	# let's use stratify=y to maintain the same ratio as in the training dataset when splitting the dataset
+	# Let's use stratify=y to maintain the same ratio as in the training dataset when splitting the dataset
 	X_train, X_test, y_train, y_test = train_test_split(df,
 													target,
 													test_size=0.25,
@@ -190,20 +192,20 @@ def split(df):
 
 
 def ml_flow_function(**context):
-	#if __name__ == "__main__":
-		#warnings.filterwarnings("ignore")
-		#np.random.seed(40)
+	
+		warnings.filterwarnings("ignore")
+		np.random.seed(40)
 
 		print("Inside mlflow function")
+		experiment_id = "attrition_id"
 
-		# Retrieve the dataframe from XCOM
+		#Set tracker uri to enable logging the model as an artifact using http request
+		mlflow.set_tracking_uri("http://127.0.0.1:5000")
+		
 		df_HR = context['ti'].xcom_pull(key='df_HR', task_ids='prep_scale')
 
 		# Split the data into training and test sets. (0.75, 0.25) split.
 		X_train, X_test, y_train, y_test = split(df_HR)
-
-
-
 
 		# Create a simple Random forest classifier
 		randForest = RandomForestClassifier(max_depth=7, random_state=0)
@@ -219,19 +221,12 @@ def ml_flow_function(**context):
 		mlflow.log_param("accuracy", accuracy)
 		mlflow.log_param("F1 score", f1)
 
-
-
-
-
-
-#df_HR=read_data('/home/dasjyotishka/airflow/Employee-Attrition.csv')
-#df_HR_encoded = prep_encoding(df_HR)
-#df_HR_scaled = prep_scale(df_HR_encoded)
-#ml_flow_function(df_HR_scaled)
+		# Log the model with MLflow
+		mlflow.sklearn.log_model(randForest, "employee_attrition_model")
 
 
 with DAG(
-    dag_id="employee_attrition_dag",
+    dag_id="employee_attrition_dag_2",
     start_date=datetime(2023, 5, 9),
     schedule_interval="@hourly",
     catchup=False
