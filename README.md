@@ -20,6 +20,43 @@ This project combined several of the most popular MLOps tools to showcase what t
 4. Shamir Mohamed(shamir.mohamed@essec.edu)
 5. Jiayi Wu(jiayi.wu@essec.edu)
 
+# Dataset
+The IBM HR Analytics Employee Attrition Performance dataset was used which contains employee data for 1,470 employees with various information about the employees. It was used to predict when employees are going to quit by understanding the main drivers of employee churn. There are 35 factors included in the dataset. The dataset can be obtained at https://www.kaggle.com/datasets/pavansubhasht/ibm-hr-analytics-attrition-dataset.
+
+As stated on the IBM website “This is a fictional data set created by IBM data scientists”. Its main purpose was to demonstrate the IBMWatson Analytics tool for employee attrition.
+
+# Modelling
+
+## Data pre-processing
+The analysis begins with data preprocessing, which involved cleaning and formatting the dataset and converting the categorical variables into dummy variables. Machine Learning algorithms can typically only have numerical values as their predictor variables. Hence Label Encoding becomes necessary as they encode categorical labels with numerical values. To avoid introducing feature importance for categorical features with large numbers of unique values, Label Encoding and One-Hot Encoding were used.\\
+
+The dataset used in this study has no missing values. In HR Analytics, it is unlikely for employee data to feature a large ratio of missing values since HR Departments typically have all personal and employment data on-file. However, the type of documentation data is being kept in (i.e. whether it is paper-based, Excel spreadsheets, databases, etc) has a massive impact on the accuracy and the ease of access to the HR data.\\
+
+Feature scaling is an essential step in data preprocessing when developing predictive models. It involves transforming the numerical features in the dataset to a common scale or range. The main purpose of feature scaling is to ensure that all features contribute equally to the model training process, preventing any single feature from dominating the model's learning process due to differences in their original scales.\\
+
+When features have significantly different scales, it becomes challenging to compare the importance or weight of each feature. Scaling the features to a common range enables fair comparison and interpretation of their contributions to the model's predictions.In this case the MinMaxScaler was used to essentially shrink the range of values such that it is now between 0 and 5.
+
+## Experimental evaluations
+In this study, we employed 10-fold cross-validation to evaluate the performance of the various models used for employee churn prediction. Cross-validation is a robust technique commonly used in machine learning to estimate the model's performance on unseen data and assess its generalization capabilities.
+The 10-fold cross-validation procedure involves splitting the dataset into ten equal-sized subsets or "folds." The models are then trained and evaluated ten times, each time using a different fold as the validation set and the remaining nine folds as the training set. This process ensures that each data point is used for both training and validation, providing a comprehensive assessment of the model's performance across different subsets of the data.
+
+By performing cross-validation, we mitigate the risk of overfitting or underfitting the model to a specific subset of the data. It helps us understand how the model generalizes to unseen instances and provides a more robust estimate of its performance.
+
+The average performance metrics obtained from the 10-fold cross-validation provide a more reliable estimate of the model's performance than a single train-test split. Additionally, the standard deviation of the performance metrics across the folds provides insights into the consistency and stability of the model's predictions.
+
+By utilizing 10-fold cross-validation, we ensure a rigorous evaluation of the models, capturing their performance across multiple subsets of the data. This approach enables us to make informed comparisons between different classifiers and select the model that exhibits the best overall performance in predicting employee churn.
+
+# Results
+
+| Model | Accuracy |
+| -- | -- |
+Random Forest | **85.12%** |
+K - Nearest Neighbour | 84.67% |
+Support Vector Machines | 84.30% |
+Decision Tree Classifier | 80.31% |
+Logistic Regression | 76.51% |
+Gaussian Naive Bayes Classifier | 66.33% |
+
 # Overview of the MLOps pipelines developed
 
 MLOps, which stands for Machine Learning Operations, refers to the practices and techniques used to streamline and operationalize machine learning models in production environments that focus on the challenges of deploying, monitoring, and maintaining machine learning systems. It helps establish a robust and efficient workflow that encompasses the entire lifecycle of a machine learning project. \\
