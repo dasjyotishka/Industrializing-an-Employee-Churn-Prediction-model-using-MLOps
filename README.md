@@ -1,4 +1,4 @@
-# Implementing an Employee Churn Prediction Model using open source technologies
+# Industrializing an Employee Churn Prediction Model using MLOps
 
 This project was the outcome of the Corporate Reseach Project as a part of Masters in Data Sciences and Business Analytics program at ESSEC-CentraleSupelec and monitored by Deloitte.
 
