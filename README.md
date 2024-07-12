@@ -12,7 +12,7 @@ The selected use case for this endeavor revolves around predicting employee chur
 
 This project combined several of the most popular MLOps tools to showcase what the  workflow would look like using these tools, from experimentation to production. The experimentation loop uses Jupyter, MLflow, and Git. The production loop consists of Git, Airflow, MLflow, and FlaskAPI.
 
-# Names of the students working on the project:
+# Names of contributors:
 
 1. Jyotishka Das(jyotishka.das@essec.edu)
 2. Xinran Yao(xinran.yao@essec.edu)
